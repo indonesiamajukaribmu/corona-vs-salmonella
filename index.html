@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#0b0d12">
-<title>CORONA vs SALMONELLA — Co-op 1–4 Pemain, 8 Tahap Tubuh Manusia</title>
+<title>CORONA vs SALMONELLA — Lobby + Co-op 1–4 Pemain</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
@@ -55,8 +55,34 @@ button{font-family:inherit;color:inherit;background:none;border:none;cursor:poin
 #bestTxt{margin-left:auto;color:var(--teal);letter-spacing:1px}
 .ctr{background:#0e1118;border:1px solid var(--line);border-radius:12px;padding:13px 15px;font-family:var(--mono);font-size:12px;color:var(--dim);line-height:2;margin-bottom:14px}
 .ctr b{color:var(--amber2)}
+.steps{margin:0 0 14px;padding-left:20px;color:var(--dim);font-size:13px;line-height:1.9}
+.steps em{color:var(--amber2);font-style:normal;font-family:var(--mono);font-size:12px}
 .fine{color:#5c6474;font-size:11.5px;line-height:1.6;font-family:var(--mono);margin-top:14px}
 .fine b{color:var(--teal)}
+
+/* ====== LOBBY (HOST) ====== */
+#lobby{overflow:auto;display:flex;align-items:center;justify-content:center;padding:28px 20px;
+  background:radial-gradient(1000px 520px at 50% -10%,rgba(255,176,0,.06),transparent 60%),var(--bg)}
+.lobby-inner{width:min(560px,100%);text-align:center}
+.lobby-inner h2{color:var(--amber);letter-spacing:3px;font-size:clamp(20px,4.6vw,28px)}
+.lsub{font-family:var(--mono);font-size:11.5px;color:var(--dim);letter-spacing:1.5px;margin-top:6px;line-height:1.7}
+.lcode{display:flex;align-items:center;justify-content:center;gap:14px;margin:18px 0 6px}
+.lcode .lbl{font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:2px}
+#codeVal2{font-family:var(--mono);font-size:clamp(30px,8vw,44px);letter-spacing:12px;color:var(--amber);
+  text-shadow:0 0 28px rgba(255,176,0,.35);font-weight:700}
+#btnCopy2{color:var(--dim);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-family:var(--mono);font-size:11px;letter-spacing:1px}
+#btnCopy2:hover{color:var(--amber);border-color:var(--amber)}
+#lobbyStatus{font-family:var(--mono);font-size:11px;color:var(--amber2);letter-spacing:1px;margin-bottom:14px}
+#slotList{max-width:430px;margin:0 auto 8px;text-align:left}
+.slot{display:flex;align-items:center;gap:10px;background:#0e1118;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:8px;font-family:var(--mono);font-size:12.5px;color:var(--dim)}
+.slot b{color:var(--ink);letter-spacing:1px;font-size:14px}
+.slot .ok{margin-left:auto;color:var(--green);letter-spacing:1px}
+.slot .wait{margin-left:auto;color:var(--amber2);letter-spacing:1px}
+.slot.empty{opacity:.45}
+.slot .tDot{width:10px;height:10px;border-radius:50%;flex:none}
+.lhint{font-family:var(--mono);font-size:11px;color:#5c6474;line-height:1.7;margin:10px 0 16px}
+.lrow{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+#readyCnt{font-family:var(--mono);font-size:11px;color:var(--teal);letter-spacing:1px}
 
 /* ====== GAME / HUD ====== */
 #cv{position:absolute;inset:0;width:100%;height:100%;display:block;background:#0b0d12;touch-action:none}
@@ -72,6 +98,7 @@ button{font-family:inherit;color:inherit;background:none;border:none;cursor:poin
 .jp.done{background:rgba(89,230,200,.16);color:var(--teal);border-color:#2c4a34}
 .jp.cur{background:var(--amber);color:#1a1206;border-color:var(--amber2);box-shadow:0 0 9px rgba(255,176,0,.65)}
 #hudTeam{top:128px;left:12px;font-size:10px;letter-spacing:1px;min-width:130px}
+#hudTeam .lbl{color:var(--dim)}
 .tRow{display:flex;align-items:center;gap:6px;margin-top:5px;color:var(--dim)}
 .tDot{width:9px;height:9px;border-radius:50%;flex:none}
 .tBar{width:78px;height:6px;background:#1c212c;border-radius:3px;overflow:hidden;flex:none}
@@ -82,7 +109,7 @@ button{font-family:inherit;color:inherit;background:none;border:none;cursor:poin
 #codeVal{color:var(--amber);font-size:20px;letter-spacing:5px;font-weight:700}
 #btnCopy{color:var(--dim);display:flex;padding:4px}
 #btnCopy:hover{color:var(--amber)}
-#hudBtns{top:12px;right:12px;pointer-events:auto;display:flex;gap:8px}
+#hudBtns{top:12px;right:12px;pointer-events:auto;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;max-width:52vw}
 .sbtn{border:1px solid var(--line);background:rgba(13,16,23,.85);padding:9px 13px;border-radius:8px;font-size:11px;font-family:var(--mono);letter-spacing:1px}
 .sbtn:hover{border-color:var(--amber);color:var(--amber2)}
 #hudR{top:64px;right:12px;display:flex;align-items:center;gap:8px}
@@ -150,7 +177,11 @@ body.touch #bDash{display:block}
 @keyframes waitP{50%{opacity:.55}}
 #btnDrop{margin-left:8px;color:var(--dim);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:10px;font-family:var(--mono);letter-spacing:1px}
 #btnDrop:hover{color:var(--red);border-color:var(--red)}
-#join{padding:22px 18px;display:flex;flex-direction:column;gap:12px;width:min(520px,100%);margin:0 auto}
+#padHud{font-family:var(--mono);display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--dim);
+  padding:10px 14px;border-bottom:1px dashed var(--line)}
+#padHud b{color:var(--amber2)}
+#padHud .m b{color:var(--teal)}
+#join{padding:22px 18px;display:flex;flex-direction:column;gap:12px;width:min(520px,100%);margin:0 auto;overflow:auto}
 #join label{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:2px}
 .joinrow{display:flex;gap:10px}
 #padCode{flex:1;font-family:var(--mono);font-size:24px;letter-spacing:8px;text-transform:uppercase;text-align:center;
@@ -159,9 +190,18 @@ body.touch #bDash{display:block}
 .hint{color:var(--dim);font-size:12.5px;line-height:1.6}
 #hintTips{color:var(--amber2);font-size:12px}
 #hintTips b{color:var(--amber2)}
-#padHud{font-family:var(--mono);display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--dim);border-top:1px dashed var(--line);padding-top:12px}
-#padHud b{color:var(--amber2)}
-#padHud .m b{color:var(--teal)}
+#padLobby{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px;text-align:center;overflow:auto}
+.plMe{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:14px;color:var(--dim);letter-spacing:1px}
+.plMe b{color:var(--ink);font-size:18px}
+#plDot{width:22px;height:22px;border-radius:50%;background:var(--teal);box-shadow:0 0 16px rgba(89,230,200,.6)}
+#plInfo{font-family:var(--mono);font-size:12px;color:var(--teal);letter-spacing:1px;line-height:1.8;max-width:46ch}
+#bReady{width:150px;height:150px;font-size:15px;color:var(--green);border-color:#2c4a34}
+#bReady.rdy{color:var(--amber);border-color:#5a4a1e}
+#bReady:active{background:rgba(111,224,140,.14)}
+#plWait{font-family:var(--mono);font-size:12px;color:var(--green);letter-spacing:1px;animation:waitP 1.4s infinite}
+#padLobby .hint{max-width:48ch}
+#padWait{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px;text-align:center}
+#padWait .big{font-family:var(--mono);font-size:15px;color:var(--amber2);letter-spacing:1px;line-height:2}
 #padUI{flex:1;display:flex;flex-direction:column;min-height:0}
 #padStats{display:flex;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:var(--dim);
   padding:8px 14px;border-bottom:1px dashed var(--line)}
@@ -196,13 +236,11 @@ body.touch #bDash{display:block}
     <div class="brand">
       <h1><span class="c">CORONA</span> <span class="vs">VS</span> <span class="s">SALMONELLA</span></h1>
     </div>
-    <span class="tag">CO-OP 1–4 PEMAIN · 8 TAHAP DALAM TUBUH MANUSIA · STIK HP VIA KODE</span>
+    <span class="tag">LOBBY · KODE SESI · CO-OP 1–4 PEMAIN · 8 TAHAP DALAM TUBUH MANUSIA</span>
     <p class="lede">
       Bakteri <b>Salmonella</b> menyerbu lewat makanan tercemar! Kendalikan <b>pasukan virus corona</b>
       menyusuri rute dalam tubuh: mulut → tenggorokan → lambung → usus halus → usus besar →
-      pembuluh darah → hati → jantung. <b>Keyboard = P1</b>; setiap HP yang tersambung menjadi
-      <b>P2, P3, P4</b> dengan warna &amp; nyawa sendiri. Misi dikerjakan bersama, dan kalahkan
-      raja <b>SALMONELLA TYPHI</b>!
+      pembuluh darah → hati → jantung, lalu kalahkan raja <b>SALMONELLA TYPHI</b>!
     </p>
     <div class="stagegrid">
       <div class="chip"><b>1</b><span>RONGGA MULUT</span></div>
@@ -218,12 +256,12 @@ body.touch #bDash{display:block}
       <button id="btnHost" class="role">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="13" rx="2"/><path d="M9 21h6M12 17v4"/></svg>
         <b>JALANKAN GAME</b>
-        <span>Laptop/TV jadi arena. Satu kode untuk semua HP (maks 4 pemain).</span>
+        <span>Buka LOBBY: kode sesi tampil, tunggu stik SIAP, lalu MULAI.</span>
       </button>
       <button id="btnPad" class="role">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>
         <b>JADIKAN HP STIK</b>
-        <span>Tiap HP = 1 pemain baru. Ketik kode sesi dari layar game.</span>
+        <span>Ketik kode sesi → masuk lobby → tekan SIAP → tunggu host mulai.</span>
       </button>
     </div>
     <div class="startlvl">
@@ -231,12 +269,38 @@ body.touch #bDash{display:block}
       <button class="slbtn" id="slM">−</button><b id="slV">1</b><button class="slbtn" id="slP">+</button>
       <span id="bestTxt"></span>
     </div>
+    <ol class="steps">
+      <li>Host: <em>JALANKAN GAME</em> → LOBBY terbuka dengan kode 5 huruf.</li>
+      <li>Tiap HP: buka file ini → <em>JADIKAN HP STIK</em> → ketik kode → tekan <em>SIAP</em>.</li>
+      <li>Lihat slot <em>P1–P4</em> di lobby. Semua SIAP? Host tekan <em>MULAI PERMAINAN</em>.</li>
+    </ol>
     <div class="ctr">
-      <b>P1</b> <span style="color:#59e6c8">●</span> keyboard: <b>WASD</b> + <b>SPASI</b> (dash) + <b>R</b><br>
-      <b>P2</b> <span style="color:#ffb000">●</span> / <b>P3</b> <span style="color:#6fe08c">●</span> / <b>P4</b> <span style="color:#b18cff">●</span> HP: <b>joystick</b> + <b>DASH</b> + <b>GO ▶</b><br>
-      Pemain gugur? <b>Hidup lagi di awal tahap berikutnya</b> · Kalah hanya jika TIM habis
+      <b>P1</b> <span style="color:#59e6c8">●</span> keyboard: <b>WASD</b> + <b>SPASI</b> (dash) + <b>R</b> ·
+      <b>P2</b> <span style="color:#ffb000">●</span> <b>P3</b> <span style="color:#6fe08c">●</span> <b>P4</b> <span style="color:#b18cff">●</span> HP: joystick + DASH + GO<br>
+      Stik yang konek saat permainan jalan otomatis <b>masuk antrean</b> — dapat slot saat host kembali ke LOBBY
     </div>
-    <p class="fine">Dua jendela di perangkat yang sama → instan via MODE LOKAL. HP ↔ laptop → internet (3–15 dtk; bila sulit, pakai WiFi yang sama). Cerita fiksi: pelindung nyata dari Salmonella adalah <b>cuci tangan, makanan matang, air bersih</b>.</p>
+    <p class="fine">Dua jendela di perangkat yang sama → instan via MODE LOKAL (±4 dtk). HP ↔ laptop → internet WebRTC (3–15 dtk; bila sulit, pakai WiFi yang sama). Cerita fiksi: pelindung nyata dari Salmonella adalah <b>cuci tangan, makanan matang, air bersih</b>.</p>
+  </div>
+</div>
+
+<!-- ================= LOBBY (HOST) ================= -->
+<div id="lobby" class="screen hidden">
+  <div class="lobby-inner">
+    <h2>LOBBY — RUANG TUNGGU</h2>
+    <p class="lsub">MASUKKAN KODE INI DI TIAP HP · SETIAP STIK MENEKAN SIAP · LALU MULAI PERMAINAN</p>
+    <div class="lcode">
+      <span class="lbl">KODE SESI</span>
+      <b id="codeVal2">·····</b>
+      <button id="btnCopy2">SALIN</button>
+    </div>
+    <div id="lobbyStatus">INISIALISASI…</div>
+    <div id="slotList"></div>
+    <p class="lhint">Slot terisi otomatis berurutan: HP pertama = P1 (bersama keyboard), berikutnya P2, P3, P4. Maks 4 pemain.</p>
+    <div class="lrow">
+      <button id="btnStartGame" class="btn amber">▶ MULAI PERMAINAN</button>
+      <button id="btnLobbyMenu" class="btn ghost">MENU</button>
+    </div>
+    <p id="readyCnt" style="margin-top:12px"></p>
   </div>
 </div>
 
@@ -252,13 +316,14 @@ body.touch #bDash{display:block}
     </div>
     <div class="hudbox" id="hudTeam"></div>
     <div class="hudbox" id="hudCode">
-      <span class="lbl">KODE SESI</span><span id="codeVal">·····</span>
+      <span class="lbl">KODE</span><span id="codeVal">·····</span>
       <button id="btnCopy" title="Salin kode">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
       </button>
     </div>
-    <div class="hudbox" id="hudR"><span class="dot" id="connDot"></span><span id="connTxt">INISIALISASI…</span></div>
+    <div class="hudbox" id="hudR"><span class="dot" id="connDot"></span><span id="connTxt">-</span></div>
     <div id="hudBtns">
+      <button class="sbtn" id="btnLobby">LOBBY</button>
       <button class="sbtn" id="btnRestart">ULANGI [R]</button>
       <button class="sbtn" id="btnMenu">MENU</button>
     </div>
@@ -270,7 +335,7 @@ body.touch #bDash{display:block}
       <span class="lbl" id="hpLbl">NYAWA P1</span><div class="bar"><div id="hpFill"></div></div>
       <span class="lbl" id="enLbl">ENERGI P1</span><div class="bar"><div id="enFill"></div></div>
     </div>
-    <div id="waitBanner">Buka file ini di <b>tiap HP</b> → “JADIKAN HP STIK” → ketik kode di atas.<br>Setiap HP yang bergabung = <b>1 pemain baru (P2–P4)</b>. Tanpa HP: <b>WASD</b> + <b>Spasi</b> + <b>R</b>.</div>
+    <div id="waitBanner">Stik belum ikut main? Kembali ke <b>LOBBY</b> (tombol di kanan atas) agar HP yang menunggu bisa mendapat slot.<br>Kontrol P1: <b>WASD</b> + <b>Spasi</b> + <b>R</b>.</div>
   </div>
   <div id="stickZone"><div id="stickBase" style="left:34px;bottom:34px"><div id="stickKnob"></div></div></div>
   <button id="bDash">DASH</button>
@@ -302,6 +367,7 @@ body.touch #bDash{display:block}
       <p class="sub" id="overSub"></p>
       <div class="row">
         <button class="btn amber" id="btnAgain">COBA LAGI</button>
+        <button class="btn ghost" id="btnLobby2">LOBBY</button>
         <button class="btn ghost" id="btnMenu2">MENU</button>
       </div>
     </div>
@@ -314,7 +380,7 @@ body.touch #bDash{display:block}
       <p class="sub"><b>SKOR AKHIR: <span id="winScore" style="font-size:20px">0</span></b></p>
       <p class="fact">Ingat: cuci tangan dengan sabun, masak makanan sampai matang, dan minum air bersih adalah cara nyata mengalahkan Salmonella!</p>
       <div class="row">
-        <button class="btn amber" id="btnAgain2">MAIN LAGI</button>
+        <button class="btn amber" id="btnAgain2">LOBBY LAGI</button>
         <button class="btn ghost" id="btnMenu3">MENU</button>
       </div>
     </div>
@@ -330,22 +396,38 @@ body.touch #bDash{display:block}
     <span class="pill" id="padRtt">— ms</span>
     <button id="btnDrop" class="hidden">PUTUS</button>
   </header>
+
+  <div id="padHud" class="hidden">
+    <span>KARAKTER <b id="pdMe">-</b></span>
+    <span>TAHAP <b id="pdLvl">1</b></span><span class="t"><b id="pdOrgan">-</b></span>
+    <span>SKOR <b id="pdScore">0</b></span><span>WAKTU <b id="pdTime">--:--</b></span>
+    <span>NYAWA <b id="pdHp">-</b></span><span>EN <b id="pdEn">-</b></span>
+    <span class="m">MISI <b id="pdMis">-</b></span>
+  </div>
+
   <section id="join">
-    <label>KODE SESI DARI LAYAR GAME</label>
+    <label>KODE SESI DARI LOBBY</label>
     <div class="joinrow">
       <input id="padCode" maxlength="5" placeholder="XXXXX" autocomplete="off" spellcheck="false">
       <button id="btnConnect" class="btn amber">HUBUNGKAN</button>
     </div>
-    <p class="hint">Buka file ini di laptop/TV → “JALANKAN GAME” → ketik kode yang muncul. Tiap HP bergabung = 1 pemain baru (maks 4). Dua jendela di perangkat yang sama tersambung instan.</p>
+    <p class="hint">Buka file ini di laptop/TV → “JALANKAN GAME” → lobby menampilkan kode. Ketik kode itu di sini. Dua jendela di perangkat yang sama tersambung instan; perangkat berbeda butuh internet (3–15 dtk).</p>
     <p class="hint" id="hintTips"></p>
-    <div id="padHud" class="hidden">
-      <span>KARAKTER <b id="pdMe">-</b></span>
-      <span>TAHAP <b id="pdLvl">1</b></span><span class="t"><b id="pdOrgan">-</b></span>
-      <span>SKOR <b id="pdScore">0</b></span><span>WAKTU <b id="pdTime">--:--</b></span>
-      <span>NYAWA <b id="pdHp">-</b></span><span>EN <b id="pdEn">-</b></span>
-      <span class="m">MISI <b id="pdMis">-</b></span>
-    </div>
   </section>
+
+  <section id="padLobby" class="hidden">
+    <div class="plMe"><span id="plDot"></span>KARAKTER <b id="plLabel">-</b></div>
+    <div id="plInfo">TERHUBUNG KE LOBBY</div>
+    <button class="pbtn big" id="bReady">SIAP ▶</button>
+    <div id="plWait" class="hidden">✓ KAMU SIAP — MENUNGGU HOST MENEKAN “MULAI PERMAINAN”…</div>
+    <p class="hint">Slot ditentukan otomatis sesuai urutan bergabung (P1–P4). Setelah semua SIAP, host menekan MULAI PERMAINAN dan layar kontrol ini akan terbuka sendiri.</p>
+  </section>
+
+  <section id="padWait" class="hidden">
+    <div class="big">⏳ PERMAINAN SEDANG BERLANGSUNG</div>
+    <p class="hint">Kamu masuk antrean. Host akan kembali ke LOBBY setelah putaran ini — saat itu kamu otomatis mendapat slot dan bisa menekan SIAP.</p>
+  </section>
+
   <div id="padUI" class="hidden">
     <div id="padStats">
       <span>KARAKTER <b id="psMe">-</b></span>
@@ -360,7 +442,7 @@ body.touch #bDash{display:block}
       </div>
     </div>
   </div>
-  <footer class="pad-foot">JOYSTICK = GERAK · DASH = TAMBUS & KEBAL · GO = SETUJUI BRIEFING / MUTASI / ULANG</footer>
+  <footer class="pad-foot">KODE → LOBBY → SIAP → HOST MULAI · JOYSTICK = GERAK · DASH = TAMBUS · GO = SETUJUI</footer>
 </div>
 
 <div id="toast"></div>
@@ -500,7 +582,7 @@ addEventListener('resize',fit);
 addEventListener('orientationchange',()=>setTimeout(fit,150));
 if('ontouchstart'in window||navigator.maxTouchPoints>0)document.body.classList.add('touch');
 
-/* ================= INPUT LOKAL (HOST — selalu P1) ================= */
+/* ================= INPUT LOKAL (HOST — P1) ================= */
 const keys={};
 addEventListener('keydown',e=>{
  if([' ','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key))e.preventDefault();
@@ -540,7 +622,6 @@ zone.addEventListener('pointercancel',stickEnd);
 addEventListener('contextmenu',e=>{if(e.target===cv)e.preventDefault();});
 addEventListener('pointerdown',audio,{once:true});
 
-/* input gabungan per slot (keyboard hanya slot 1 + stik host) */
 function slotInput(slot){
  let x=0,y=0;
  if(slot===1){
@@ -561,7 +642,7 @@ function slotInput(slot){
 
 /* ============================================================
    JARINGAN 3 JALUR — LOKAL (BroadcastChannel+localStorage)
-   & INTERNET (WebRTC+TURN)
+   & INTERNET (WebRTC+TURN)  ·  VERSI PERBAIKAN HANDSHAKE
    ============================================================ */
 let peer=null,cPeer=null,cConn=null,sendTimer=null,pingTimer=null;
 let HOSTCODE='';
@@ -582,7 +663,13 @@ function peerOpts(){
    {urls:'turn:turn.anyfirewall.com:443?transport=tcp',username:'webrtc',credential:'webrtc'}
   ],iceCandidatePoolSize:4},debug:1};
 }
-function setConn(txt,st){$('#connTxt').textContent=txt;$('#connDot').className='dot'+(st===1?' on':st===2?' err':'');}
+function setConn(txt,st){
+ $('#connTxt').textContent=txt;
+ $('#connDot').className='dot'+(st===1?' on':st===2?' err':'');
+ const ls=$('#lobbyStatus');
+ if(ls){ls.textContent=txt;ls.style.color=st===1?'var(--green)':st===2?'var(--red)':'var(--amber2)';}
+}
+function sendToPad(p,o){try{p.conn.send(p.via==='ws'?o:Object.assign({to:p.id},o))}catch(e){}}
 function fxFn(v){pads.forEach(p=>{try{p.conn.open&&p.conn.send({k:'fx',v})}catch(e){}});}
 function freeSlot(){for(let s=1;s<=4;s++){if(!pads.some(q=>q.slot===s))return s;}return 0;}
 
@@ -601,24 +688,36 @@ function handlePadMsg(p,d,c){
   try{tgt.send(Object.assign({k:'pong',t:d.t},tag))}catch(e){}
  }else if(d.k==='go'){
   padGoCmd();
+ }else if(d.k==='ready'){
+  if(p.slot){
+   p.ready=!!d.v;
+   if(p.ready)sJoin();
+   renderLobby();
+  }
  }
 }
-function hostAcceptPad(p){
- const s=freeSlot();
- if(!s){ /* penuh */
-  try{p.conn.send(p.via==='ws'?{k:'full'}:{k:'full',to:p.id})}catch(e){}
-  setTimeout(()=>{if(p.via==='ws'){try{p.conn.close()}catch(e){}}},300);
-  hostDropPad(p);
+
+/* ---------- HOST: slot & lobby ---------- */
+function assignSlotToPad(p){
+ const s=p.slot||freeSlot();      /* idempoten: slot lama dipertahankan */
+ if(!s){
+  sendToPad(p,{k:'full'});
+  setTimeout(()=>{if(p.via==='ws'){try{p.conn.close()}catch(e){}}hostDropPad(p);},300);
   return;
  }
- p.slot=s;
- const pl=ensurePlayer(s);
- try{p.conn.send(p.via==='ws'
-   ?{k:'hello',id:p.id,label:pl.label,col:pl.col}
-   :{k:'hello',to:p.id,id:p.id,label:pl.label,col:pl.col})}catch(e){}
- setConn(pads.length+' HP · '+players.length+' PEMAIN',1);
- $('#waitBanner').classList.add('hidden');
- sendState();sJoin();
+ p.slot=s;p.ready=false;p.waiting=false;
+ sendToPad(p,{k:'hello',id:p.id,label:'P'+s,col:SLOTCOL[s-1]});
+ renderLobby();
+}
+function hostAcceptPad(p){
+ if(state!=='lobby'){           /* permainan berjalan → masuk antrean */
+  p.waiting=true;
+  sendToPad(p,{k:'busy'});
+  return;
+ }
+ assignSlotToPad(p);
+ const n=pads.filter(q=>q.slot).length;
+ setConn(n+' STIK TERHUBUNG',1);
 }
 function hostDropPad(p){
  const i=pads.indexOf(p);if(i<0)return;
@@ -628,8 +727,66 @@ function hostDropPad(p){
   if(j>=0){const pl=players[j];fx(pl.x,pl.y,pl.col,12);players.splice(j,1);}
  }
  p.slot=null;
- setConn(pads.length?pads.length+' HP · '+players.length+' PEMAIN':'HP TERPUTUS — menunggu…',pads.length?1:0);
- if(!pads.length)$('#waitBanner').classList.remove('hidden');
+ renderLobby();
+ if(state==='lobby'){
+  const n=pads.filter(q=>q.slot).length;
+  setConn(n?n+' STIK TERHUBUNG':'MODE LOKAL AKTIF — MENUNGGU HP…',n?1:0);
+ }else{
+  setConn(pads.length?'STIK TERHUBUNG':'STIK TERPUTUS',pads.length?1:0);
+ }
+}
+function renderLobby(){
+ if($('#lobby').classList.contains('hidden'))return;
+ $('#codeVal2').textContent=HOSTCODE;
+ let readyN=1,h='';
+ for(let s=1;s<=4;s++){
+  const pad=pads.find(q=>q.slot===s);
+  const col=SLOTCOL[s-1];
+  if(s===1&&!pad){
+   h+='<div class="slot"><span class="tDot" style="background:'+col+'"></span><b>P1</b> KEYBOARD (HOST)<span class="ok">SIAP ✓</span></div>';
+  }else if(pad){
+   if(pad.ready)readyN++;
+   h+='<div class="slot"><span class="tDot" style="background:'+col+'"></span><b>P'+s+'</b> STIK HP '+
+     (s===1?'(bersama keyboard) ':'')+
+     (pad.ready?'<span class="ok">SIAP ✓</span>':'<span class="wait">BELUM SIAP</span>')+'</div>';
+  }else{
+   h+='<div class="slot empty"><span class="tDot" style="background:'+col+'"></span><b>P'+s+'</b> MENUNGGU STIK…<span class="wait">KOSONG</span></div>';
+  }
+ }
+ $('#slotList').innerHTML=h;
+ $('#readyCnt').textContent='SIAP '+readyN+'/4 — host boleh mulai kapan saja (P1 keyboard selalu siap)';
+}
+function enterLobby(){
+ $('#menu').classList.add('hidden');
+ $('#pad').classList.add('hidden');
+ $('#game').classList.add('hidden');
+ $('#lobby').classList.remove('hidden');
+ state='lobby';
+ startHost();
+ renderLobby();
+}
+function goLobby(){
+ state='lobby';
+ showOverlay(null);
+ $('#game').classList.add('hidden');
+ $('#lobby').classList.remove('hidden');
+ players=[];
+ pads.forEach(p=>{
+  if(p.waiting)assignSlotToPad(p);          /* antrean dapat slot */
+  else if(p.slot){p.ready=false;sendToPad(p,{k:'lobby',label:'P'+p.slot,col:SLOTCOL[p.slot-1]});}
+ });
+ const n=pads.filter(q=>q.slot).length;
+ setConn(n?n+' STIK TERHUBUNG':'MENUNGGU HP… (lokal aktif)',n?1:0);
+ renderLobby();
+}
+function startFromLobby(){
+ $('#lobby').classList.add('hidden');
+ $('#game').classList.remove('hidden');
+ fit();
+ resetRun();
+ pads.forEach(p=>{if(p.slot&&!p.waiting)sendToPad(p,{k:'start'});});
+ $('#waitBanner').classList.toggle('hidden',pads.some(p=>p.slot&&!p.waiting));
+ showIntro();
 }
 
 /* ---------- HOST: bus lokal ---------- */
@@ -643,7 +800,7 @@ function localBusRoute(d){
   let p=pads.find(x=>x.id===d.from&&x.via!=='ws');
   if(!p){
    const via=d.via==='ls'?'ls':'bc';
-   p={via,id:d.from,slot:null,ctl:null,dashPrev:false,lastAct:performance.now(),
+   p={via,id:d.from,slot:null,ready:false,waiting:false,ctl:null,dashPrev:false,lastAct:performance.now(),
       conn:{open:true,send:o=>busSend(via,d.from,o)}};
    pads.push(p);
   }
@@ -668,7 +825,8 @@ function setupLocalBus(code){
  }catch(e){hostBC=null;}
  lsListen=e=>{
   if(!e||e.key!==busKey||!e.newValue)return;
-  try{const d=JSON.parse(e.newValue);localBusRoute(d);}catch(err){}
+  const d=parseBus(e.newValue);
+  if(d)localBusRoute(d);
  };
  addEventListener('storage',lsListen);
  busPruneT=setInterval(()=>{
@@ -677,7 +835,7 @@ function setupLocalBus(code){
    const p=pads[i];
    if(p.via!=='ws'&&p.lastAct&&now-p.lastAct>7000){hostDropPad(p);dropped=true;}
   }
-  if(dropped&&!pads.length){setConn('MENUNGGU HP…',0);$('#waitBanner').classList.remove('hidden');}
+  if(dropped&&state==='lobby'&&!pads.length)setConn('MENUNGGU HP… (lokal aktif)',0);
  },3000);
 }
 function closeLocalBus(){
@@ -690,15 +848,17 @@ function closeLocalBus(){
 function startHost(){
  const code=newCode();HOSTCODE=code;
  $('#codeVal').textContent=code;
- $('#waitBanner').classList.remove('hidden');
  setConn('MODE LOKAL AKTIF — MENUNGGU HP…',0);
  setupLocalBus(code);
  peer=new Peer('CRS-RC-'+code,peerOpts());
- peer.on('open',()=>setConn(pads.length?pads.length+' HP · '+players.length+' PEMAIN':'MENUNGGU HP… (lokal aktif)',pads.length?1:0));
+ peer.on('open',()=>{
+  const n=pads.filter(q=>q.slot).length;
+  setConn(n?n+' STIK TERHUBUNG':'MENUNGGU HP… (lokal aktif)',n?1:0);
+ });
  peer.on('connection',c=>{
   const dup=pads.findIndex(x=>x.id===c.peer);
   if(dup>=0){try{pads[dup].conn.close()}catch(e){}pads.splice(dup,1);}
-  const p={via:'ws',id:c.peer,slot:null,ctl:null,dashPrev:false};
+  const p={via:'ws',id:c.peer,slot:null,ready:false,waiting:false,ctl:null,dashPrev:false};
   pads.push(p);
   const openT=setTimeout(()=>{hostDropPad(p);try{c.close()}catch(e){}},12000);
   c.on('open',()=>{clearTimeout(openT);hostAcceptPad(p);});
@@ -714,21 +874,49 @@ function startHost(){
  });
 }
 
+/* ---------- STIK: layar ---------- */
+function padShow(which){
+ ['join','padLobby','padWait','padUI'].forEach(id=>$('#'+id).classList.add('hidden'));
+ $('#'+which).classList.remove('hidden');
+ $('#padHud').classList.toggle('hidden',!(which==='padUI'||which==='padLobby'));
+}
+
 /* ---------- STIK: terima data ---------- */
 function padHandleData(d){
  if(!d||d.from)return;
  if(d.to&&d.to!==myPid)return;
  if(d.k==='pong')$('#padRtt').textContent=Math.round(performance.now()-d.t)+' ms';
+ else if(d.k==='hello'||d.k==='lobby'){
+  padReadyState=false;
+  $('#plLabel').textContent=d.label;
+  $('#psMe').textContent=d.label;$('#pdMe').textContent=d.label;
+  $('#plDot').style.background=d.col;
+  $('#stickKnobP').style.background=d.col;
+  $('#bReady').textContent='SIAP ▶';$('#bReady').classList.remove('rdy');
+  $('#plWait').classList.add('hidden');
+  $('#plInfo').textContent=(d.k==='lobby'?'HOST KEMBALI KE LOBBY — ':'TERHUBUNG KE LOBBY — ')+'slot kamu: '+d.label;
+  if($('#padUI').classList.contains('hidden'))padShow('padLobby');
+  if(d.k==='lobby')toast('Kembali ke lobby — tekan SIAP lagi');
+ }
+ else if(d.k==='start'){
+  padReadyState=false;
+  padShow('padUI');
+  toast('PERMAINAN DIMULAI — '+($('#psMe').textContent||'')+' siap bertarung!');
+  sStage();
+ }
+ else if(d.k==='busy'){
+  padShow('padWait');
+  setPadPill('MENUNGGU PUTARAN BERIKUTNYA','wait');
+ }
  else if(d.k==='full'){
   clearInterval(sendTimer);clearInterval(pingTimer);
-  $('#padUI').classList.add('hidden');$('#join').classList.remove('hidden');
-  $('#padHud').classList.add('hidden');$('#btnDrop').classList.add('hidden');
-  showFullPad();
+  padShow('join');$('#btnDrop').classList.add('hidden');
+  setPadPill('ARENA PENUH — MAKS 4 PEMAIN','err');
  }
- else if(d.k==='hello'){
-  $('#psMe').textContent=d.label;$('#pdMe').textContent=d.label;
-  $('#stickKnobP').style.background=d.col;
-  toast('Anda '+d.label+' — kendalikan virus warna ini!');
+ else if(d.k==='closed'){
+  clearInterval(sendTimer);clearInterval(pingTimer);
+  padShow('join');$('#btnDrop').classList.add('hidden');
+  setPadPill('ARENA DITUTUP','err');
  }
  else if(d.k==='state'){
   $('#pdLvl').textContent=d.level;$('#pdOrgan').textContent=d.organ;
@@ -758,82 +946,113 @@ function stopTicker(){clearInterval(NET.timer);NET.active=false;}
 function connectPad(){
  if(NET.active){cancelPad();return;}
  const code=$('#padCode').value.trim().toUpperCase();
- if(code.length<5){toast('Masukkan kode sesi (5 karakter) dari layar game.');return;}
+ if(code.length<5){toast('Masukkan kode sesi (5 karakter) dari lobby.');return;}
  NET.code=code;NET.tries=0;NET.cancel=false;
  $('#hintTips').innerHTML='';
  startTicker('MENYAMBUNG');
  $('#btnConnect').textContent='BATAL';
  localFirst(code);
 }
+function handleLocalResult(r){
+ if(r==='full'){padHandleFull();return true;}
+ if(r==='bc'||r==='ls'){padConnected(r);return true;}
+ if(r==='bc-busy'){padConnected('bc');padHandleData({k:'busy'});return true;}
+ if(r==='ls-busy'){padConnected('ls');padHandleData({k:'busy'});return true;}
+ return false;
+}
 function localFirst(code){
  if(NET.cancel)return;
  setPadPill('MODE LOKAL…','wait');
  tryLocalBC(code).then(r=>{
   if(NET.cancel)return;
-  if(r==='full'){showFullPad();return;}
-  if(r){padConnected('bc');return;}
+  if(handleLocalResult(r))return;
   tryLocalLS(code).then(r2=>{
    if(NET.cancel)return;
-   if(r2==='full'){showFullPad();return;}
-   if(r2)padConnected('ls');
-   else peerFlow(code);
+   if(handleLocalResult(r2))return;
+   peerFlow(code);
   });
  });
 }
+/* parser bus LS: buang penanda '#waktu' di ekor sebelum JSON.parse */
+function parseBus(v){
+ if(!v)return null;
+ const i=v.lastIndexOf('#');
+ try{return JSON.parse(i<0?v:v.slice(0,i))}catch(e){return null}
+}
+/* jalur lokal 1: BroadcastChannel — handshake diulang, terima hello/busy/full */
 function tryLocalBC(code){
  return new Promise(res=>{
   let bc;
   try{bc=new BroadcastChannel('crs-rc-'+code);}catch(e){res(false);return;}
   const pid='L'+Math.random().toString(36).slice(2,9);
-  let done=false;
-  const to=setTimeout(fail,1600);
-  function fail(){if(done)return;done=true;clearTimeout(to);try{bc.close()}catch(e){}res(false);}
+  const hello={k:'bc-hello',from:pid,via:'bc'};
+  let done=false,tries=0;
+  const iv=setInterval(()=>{
+   if(done)return;
+   tries++;
+   if(tries>6){fail();return;}          /* ±3,6 dtk */
+   try{bc.postMessage(hello)}catch(e){fail();}
+  },600);
+  const to=setTimeout(fail,4200);
+  function cleanup(){clearInterval(iv);clearTimeout(to);}
+  function fail(){if(done)return;done=true;cleanup();try{bc.close()}catch(e){}res(false);}
+  function accept(msg,tag){
+   if(done)return;done=true;cleanup();
+   myPid=pid;padBC=bc;padLSBus='';
+   bc.onmessage=e2=>{const m=e2.data||{};if(m.from)return;padHandleData(m);};
+   res(tag);
+   if(msg.k==='hello')padHandleData(msg);   /* label karakter terpasang */
+  }
   bc.onmessage=e=>{
    const d=e.data||{};
    if(d.from)return;
-   if(d.k==='full'){if(!done){done=true;clearTimeout(to);try{bc.close()}catch(e){}res('full');}return;}
-   if(d.k==='hello'&&(!d.to||d.to===pid)){
-    if(done)return;done=true;clearTimeout(to);
-    myPid=pid;padBC=bc;padLSBus='';
-    bc.onmessage=e2=>{const m=e2.data||{};if(m.from)return;padHandleData(m);};
-    res(true);
-   }
+   if(d.to&&d.to!==pid)return;
+   if(d.k==='hello')accept(d,'bc');
+   else if(d.k==='busy')accept(d,'bc-busy');
+   else if(d.k==='full'){if(!done){done=true;cleanup();try{bc.close()}catch(e){}res('full');}}
   };
-  const hello={k:'bc-hello',from:pid,via:'bc'};
   try{bc.postMessage(hello)}catch(e){fail();return;}
-  setTimeout(()=>{if(!done)try{bc.postMessage(hello)}catch(e){}},450);
-  setTimeout(()=>{if(!done)try{bc.postMessage(hello)}catch(e){}},1000);
  });
 }
 function putLS(k,v){try{localStorage.setItem(k,JSON.stringify(v)+'#'+Date.now()+Math.random())}catch(e){}}
+/* jalur lokal 2: localStorage events — parse diperbaiki + handshake diulang */
 function tryLocalLS(code){
  return new Promise(res=>{
   const bus='crs-rc-bus-'+code,pid='L'+Math.random().toString(36).slice(2,9),mine=bus+'-to-'+pid;
-  let done=false;
-  const to=setTimeout(fail,1800);
-  function fail(){if(done)return;done=true;clearTimeout(to);removeEventListener('storage',ls);res(false);}
+  const hello={k:'bc-hello',from:pid,via:'ls'};
+  let done=false,tries=0;
+  const iv=setInterval(()=>{
+   if(done)return;
+   tries++;
+   if(tries>5){fail();return;}          /* ±3 dtk */
+   putLS(bus,hello);
+  },600);
+  const to=setTimeout(fail,3600);
+  function cleanup(){clearInterval(iv);clearTimeout(to);}
+  function fail(){if(done)return;done=true;cleanup();removeEventListener('storage',ls);res(false);}
+  function accept(msg,tag){
+   if(done)return;done=true;cleanup();
+   removeEventListener('storage',ls);
+   myPid=pid;padBC=null;padLSBus=mine;
+   padLSListener=ls2;addEventListener('storage',ls2);
+   res(tag);
+   if(msg.k==='hello')padHandleData(msg);
+  }
   function ls(e){
    if(e.key!==mine||!e.newValue)return;
-   let d=null;try{d=JSON.parse(e.newValue)}catch(err){return;}
+   const d=parseBus(e.newValue);
    if(!d||d.from)return;
-   if(d.k==='full'){if(!done){done=true;clearTimeout(to);removeEventListener('storage',ls);res('full');}return;}
-   if(d.k==='hello'&&(!d.to||d.to===pid)){
-    if(done)return;done=true;clearTimeout(to);
-    removeEventListener('storage',ls);
-    myPid=pid;padBC=null;padLSBus=mine;
-    padLSListener=ls2;addEventListener('storage',ls2);
-    res(true);
-   }
+   if(d.k==='hello')accept(d,'ls');
+   else if(d.k==='busy')accept(d,'ls-busy');
+   else if(d.k==='full'){if(!done){done=true;cleanup();removeEventListener('storage',ls);res('full');}}
   }
   function ls2(e){
    if(e.key!==mine||!e.newValue)return;
-   let d=null;try{d=JSON.parse(e.newValue)}catch(err){return;}
-   padHandleData(d);
+   const d=parseBus(e.newValue);
+   if(d&&!d.from)padHandleData(d);
   }
   addEventListener('storage',ls);
-  putLS(bus,{k:'bc-hello',from:pid,via:'ls'});
-  setTimeout(()=>{if(!done)putLS(bus,{k:'bc-hello',from:pid,via:'ls'})},500);
-  setTimeout(()=>{if(!done)putLS(bus,{k:'bc-hello',from:pid,via:'ls'})},1100);
+  putLS(bus,hello);
  });
 }
 function padConnected(via){
@@ -849,8 +1068,8 @@ function padConnected(via){
  }
  $('#btnConnect').textContent='HUBUNGKAN';
  $('#btnDrop').classList.remove('hidden');
- setPadPill(via==='ws'?'TERHUBUNG — KENDALIKAN!':'TERHUBUNG (MODE LOKAL)','ok');
- $('#join').classList.add('hidden');$('#padUI').classList.remove('hidden');$('#padHud').classList.remove('hidden');
+ setPadPill(via==='ws'?'TERHUBUNG':'TERHUBUNG (MODE LOKAL)','ok');
+ if($('#padUI').classList.contains('hidden')&&$('#padWait').classList.contains('hidden'))padShow('padLobby');
  sendTimer=setInterval(sendCtl,50);
  pingTimer=setInterval(()=>{try{cConn&&cConn.open&&cConn.send({k:'ping',t:performance.now()})}catch(e){}},2000);
  addEventListener('pagehide',padByeLocal);
@@ -879,8 +1098,8 @@ function tryPeerOnce(code){
    usingLocal='ws';myId=cPeer.id;myPid=cPeer.id;
    $('#btnConnect').textContent='HUBUNGKAN';
    $('#btnDrop').classList.remove('hidden');
-   setPadPill('TERHUBUNG — KENDALIKAN!','ok');
-   $('#join').classList.add('hidden');$('#padUI').classList.remove('hidden');$('#padHud').classList.remove('hidden');
+   setPadPill('TERHUBUNG','ok');
+   if($('#padUI').classList.contains('hidden')&&$('#padWait').classList.contains('hidden'))padShow('padLobby');
    sendTimer=setInterval(sendCtl,50);
    pingTimer=setInterval(()=>{try{cConn&&cConn.open&&cConn.send({k:'ping',t:performance.now()})}catch(e){}},2000);
   });
@@ -888,8 +1107,7 @@ function tryPeerOnce(code){
   cConn.on('close',()=>{
    if(!opened)return;
    clearInterval(sendTimer);clearInterval(pingTimer);
-   $('#padUI').classList.add('hidden');$('#join').classList.remove('hidden');
-   $('#padHud').classList.add('hidden');$('#btnDrop').classList.add('hidden');
+   padShow('join');$('#padHud').classList.add('hidden');$('#btnDrop').classList.add('hidden');
    startTicker('SAMBUNG ULANG');
    retryOrFail('TERPUTUS');
   });
@@ -912,12 +1130,10 @@ function retryOrFail(reason){
 function localSecondChance(reason){
  setPadPill('CEK MODE LOKAL TERAKHIR…','wait');
  tryLocalBC(NET.code).then(r=>{
-  if(r==='full'){showFullPad();return;}
-  if(r){padConnected('bc');return;}
+  if(handleLocalResult(r))return;
   tryLocalLS(NET.code).then(r2=>{
-   if(r2==='full'){showFullPad();return;}
-   if(r2)padConnected('ls');
-   else showFail(reason);
+   if(handleLocalResult(r2))return;
+   showFail(reason);
   });
  });
 }
@@ -926,12 +1142,12 @@ function showFail(reason){
  setPadPill('GAGAL: '+reason,'err');
  $('#hintTips').innerHTML='<b>Diagnosa:</b> '+(diag.sig?'server sinyal OK':'server sinyal tak terjangkau')+
   ' · '+(diag.chan?'kanal data OK':'WebRTC terblokir')+
-  '.<br><b>Solusi:</b> 1) tekan HUBUNGKAN lagi, 2) pastikan kedua perangkat online tanpa VPN, 3) data seluler sulit? pakai WiFi yang sama, 4) dua jendela di komputer yang sama selalu bisa via MODE LOKAL.';
+  '.<br><b>Solusi:</b> 1) tekan HUBUNGKAN sekali lagi, 2) pastikan host berada di layar LOBBY dengan kode sama, 3) kedua perangkat online tanpa VPN — data seluler sulit? pakai WiFi yang sama, 4) dua jendela di komputer yang sama <b>selalu</b> bisa via MODE LOKAL.';
 }
-function showFullPad(){
- stopTicker();killLocal();killAttempt();
- NET.active=false;
+function padHandleFull(){
+ stopTicker();killLocal();killAttempt();NET.active=false;
  $('#btnConnect').textContent='HUBUNGKAN';
+ padShow('join');$('#btnDrop').classList.add('hidden');
  setPadPill('ARENA PENUH — MAKS 4 PEMAIN','err');
 }
 function cancelPad(){
@@ -953,6 +1169,7 @@ function killAttempt(){
 }
 function sendCtl(){
  if(!cConn||!cConn.open)return;
+ if($('#padUI').classList.contains('hidden'))return;   /* kontrol hanya saat layar kontrol aktif */
  let x=stickP.dx,y=stickP.dy;
  if(Math.hypot(x,y)<.08){x=0;y=0;}
  try{cConn.send({k:'ctl',x:+x.toFixed(3),y:+y.toFixed(3),dash:padBtn.dash})}catch(e){}
@@ -968,16 +1185,17 @@ function teardownNet(){
  usingLocal='';
  $('#btnConnect').textContent='HUBUNGKAN';
  $('#btnDrop').classList.add('hidden');
- $('#codeVal').textContent='·····';
- $('#padUI').classList.add('hidden');$('#join').classList.remove('hidden');
+ $('#codeVal').textContent='·····';$('#codeVal2').textContent='·····';
+ padShow('join');
  $('#padHud').classList.add('hidden');
  setPadPill('BELUM TERHUBUNG','');
  $('#padRtt').textContent='— ms';
 }
 
-/* ---------- STIK HP: joystick & tombol ---------- */
+/* ---------- STIK: joystick, SIAP & tombol ---------- */
 const stickP={active:false,id:null,bx:0,by:0,dx:0,dy:0};
 const padBtn={dash:false};
+let padReadyState=false;
 const zoneP=$('#stickZoneP'),baseP=$('#stickBaseP'),knobP=$('#stickKnobP');
 zoneP.addEventListener('pointerdown',e=>{
  audio();stickP.active=true;stickP.id=e.pointerId;stickP.bx=e.clientX;stickP.by=e.clientY;
@@ -1003,6 +1221,14 @@ zoneP.addEventListener('pointercancel',stickPEnd);
  $('#bDashP').addEventListener('pointerup',()=>padBtn.dash=false);
  $('#bDashP').addEventListener('pointercancel',()=>padBtn.dash=false);
  $('#bGo').addEventListener('pointerdown',e=>{e.preventDefault();audio();sendGo();});
+ $('#bReady').addEventListener('click',()=>{
+ audio();padReadyState=!padReadyState;
+ try{cConn&&cConn.open&&cConn.send({k:'ready',v:padReadyState})}catch(e){}
+ $('#bReady').textContent=padReadyState?'BATAL SIAP':'SIAP ▶';
+ $('#bReady').classList.toggle('rdy',padReadyState);
+ $('#plWait').classList.toggle('hidden',!padReadyState);
+ tone(padReadyState?980:520,.08,'triangle',.1);
+});
  $('#btnConnect').addEventListener('click',e=>{e.currentTarget.blur();audio();connectPad();});
  $('#btnDrop').addEventListener('click',e=>{e.currentTarget.blur();padByeLocal();teardownNet();});
  $('#padCode').addEventListener('keydown',e=>{if(e.key==='Enter')connectPad();});
@@ -1254,7 +1480,6 @@ function update(dt){
  G.timeLeft-=dt;
  if(G.timeLeft<=0){G.timeLeft=0;fail('Waktu habis! Salmonella mulai menyebar…');return;}
  if(st.boss){hbT-=dt;if(hbT<=0){hbT=.85;sBeat();}}
- /* --- pergerakan tiap pemain --- */
  for(const pl of players){
   if(!pl.alive)continue;
   const inp=slotInput(pl.slot);
@@ -1287,7 +1512,6 @@ function update(dt){
   pl.energy=Math.min(100,pl.energy+14*dt);
   pl.fireT-=dt;if(pl.fireT<=0)fire(pl);
  }
- /* --- peluru --- */
  for(let i=bullets.length-1;i>=0;i--){
   const b=bullets[i];b.x+=b.vx*dt;b.y+=b.vy*dt;b.life-=dt;
   let hit=b.life<=0;
@@ -1296,7 +1520,6 @@ function update(dt){
   if(!hit)for(const n of nests){if(n.hp>0&&dist2(b.x,b.y,n.x,n.y)<(n.r+b.r)**2){n.hp-=b.dmg;n.flash=.15;sHitE();fx(b.x,b.y,'#ffd268',3);if(n.hp<=0)nestDown(n);hit=true;break;}}
   if(hit)bullets.splice(i,1);
  }
- /* --- musuh (mengejar pemain terdekat) --- */
  for(let i=enemies.length-1;i>=0;i--){
   const e=enemies[i];
   e.ph+=dt*6;e.hitT=Math.max(0,e.hitT-dt);e.dashCd=Math.max(0,e.dashCd-dt);
@@ -1324,7 +1547,6 @@ function update(dt){
    if(pl.alive&&dist2(e.x,e.y,pl.x,pl.y)<(e.r+pl.r)**2)hurtPlayer(pl,e.dmg,e);
   }
  }
- /* --- racun --- */
  for(let i=toxins.length-1;i>=0;i--){
   const t=toxins[i];t.x+=t.vx*dt;t.y+=t.vy*dt;t.life-=dt;
   for(const pl of players){
@@ -1332,13 +1554,11 @@ function update(dt){
   }
   if(t.life<=0)toxins.splice(i,1);
  }
- /* --- sel darah merah --- */
  if(st.flow)for(const r of rbcs){
   r.x+=(fv.x*2.2+45)*dt;r.y+=(fv.y*2.2)*dt;r.ph+=dt;
   if(r.x>W+60)r.x=-60;if(r.x<-60)r.x=W+60;
   if(r.y>H+60)r.y=-60;if(r.y<-60)r.y=H+60;
  }
- /* --- nutrisi (siapa pun boleh ambil) --- */
  if(nutrients.length<6){G.nutT-=dt;if(G.nutT<=0){G.nutT=2.5;spawnNutrient();}}
  for(let i=nutrients.length-1;i>=0;i--){
   const n=nutrients[i];n.ph+=dt*4;
@@ -1356,13 +1576,11 @@ function update(dt){
    }
   }
  }
- /* --- genangan asam --- */
  for(const p of pools){
   for(const pl of players){
    if(pl.alive&&dist2(p.x,p.y,pl.x,pl.y)<p.r*p.r)hurtPlayer(pl,8,null);
   }
  }
- /* --- sarang --- */
  for(const n of nests){
   if(n.hp<=0)continue;
   n.ph+=dt;n.flash=Math.max(0,n.flash-dt);
@@ -1374,7 +1592,6 @@ function update(dt){
     fx(n.x,n.y,'#ff5f56',6);}
   }
  }
- /* --- boss --- */
  if(boss&&boss.hp>0){
   const b=boss;b.ph+=dt;b.hitT=Math.max(0,b.hitT-dt);b.dashCd=Math.max(0,b.dashCd-dt);
   const tp=nearestPlayer(b.x,b.y);
@@ -1410,23 +1627,20 @@ function update(dt){
    if(pl.alive&&dist2(b.x,b.y,pl.x,pl.y)<(b.r+pl.r)**2)hurtPlayer(pl,22,b);
   }
  }
- /* --- spawn rutin --- */
  if(enemies.length<st.maxAlive){
   G.spawnT-=dt;
   if(G.spawnT<=0){G.spawnT=st.spawnInt;spawnAt(pick(st.types));}
  }
- /* --- efek --- */
  for(let i=parts.length-1;i>=0;i--){
   const p=parts[i];p.x+=p.vx*dt;p.y+=p.vy*dt;p.vx*=.94;p.vy*=.94;p.life-=dt;
   if(p.life<=0)parts.splice(i,1);
  }
  for(let i=texts.length-1;i>=0;i--){texts[i].t+=dt;if(texts[i].t>.9)texts.splice(i,1);}
  for(let i=ghosts.length-1;i>=0;i--){ghosts[i].life-=dt;if(ghosts[i].life<=0)ghosts.splice(i,1);}
- /* --- kamera tim: ikuti semua pemain + zoom otomatis --- */
  let n=0,minx=1e9,maxx=-1e9,miny=1e9,maxy=-1e9;
  for(const pl of players){
   if(!pl.alive)continue;
-  n++;camCx=camCx*0+0;
+  n++;
   minx=Math.min(minx,pl.x);maxx=Math.max(maxx,pl.x);
   miny=Math.min(miny,pl.y);maxy=Math.max(maxy,pl.y);
  }
@@ -1437,13 +1651,11 @@ function update(dt){
  const vw=cw/zoom,vh=ch/zoom;
  camx=vw>=W?(W-vw)/2:clamp(camCx-vw/2,0,W-vw);
  camy=vh>=H?(H-vh)/2:clamp(camCy-vh/2,0,H-vh);
- /* --- misi selesai? --- */
  let done=false;
  if(st.boss)done=boss&&boss.hp<=0;
  else if(st.nests)done=G.nestsDown>=st.nests;
  else done=G.killed>=st.quota&&(!st.nutGoal||G.nut>=st.nutGoal);
  if(done){stageClear();return;}
- /* --- tim habis? --- */
  if(players.length&&players.every(q=>!q.alive))fail('Seluruh pasukan Corona tumbang!');
 }
 
@@ -1628,7 +1840,6 @@ function draw(dt){
  }
  ctx.globalAlpha=1;
  ctx.restore();
- /* lapisan layar (vignette & nuansa boss) */
  ctx.setTransform(dpr,0,0,dpr,0,0);
  const sx=clamp((camCx-camx)*zoom,0,cw),sy=clamp((camCy-camy)*zoom,0,ch);
  const rg=ctx.createRadialGradient(sx,sy,Math.max(90,240*zoom),sx,sy,Math.max(cw,ch)*.8);
@@ -1773,18 +1984,22 @@ function padGoCmd(){
  if(state==='intro')startStage();
  else if(state==='upgrade'&&curPool.length)applyUpg(curPool[0]);
  else if(state==='over')restartStage();
- else if(state==='win'){resetRun();showIntro();}
+ else if(state==='win')goLobby();
 }
 function goMenu(){
- teardownNet();
- state='menu';showOverlay(null);
- players=[];
- $('#game').classList.add('hidden');$('#pad').classList.add('hidden');$('#menu').classList.remove('hidden');
- refreshBest();
+ pads.forEach(p=>sendToPad(p,{k:'closed'}));
+ setTimeout(()=>{
+  teardownNet();
+  state='menu';showOverlay(null);
+  players=[];
+  $('#game').classList.add('hidden');$('#lobby').classList.add('hidden');$('#pad').classList.add('hidden');
+  $('#menu').classList.remove('hidden');
+  refreshBest();
+ },150);
 }
 function refreshBest(){$('#bestTxt').textContent='REKOR: TAHAP '+BEST;}
 
-/* ================= STATE KE STIK (personal per pemain) ================= */
+/* ================= STATE KE STIK ================= */
 function sendState(){
  if($('#game').classList.contains('hidden'))return;
  const st=STAGES[G.stage-1],s=stats();
@@ -1810,19 +2025,24 @@ function updSel(){
 }
  $('#slM').onclick=()=>{startSel--;updSel();};
  $('#slP').onclick=()=>{startSel++;updSel();};
- $('#btnHost').onclick=e=>{e.currentTarget.blur();audio();resetRun();
- $('#menu').classList.add('hidden');$('#game').classList.remove('hidden');fit();
- startHost();showIntro();};
+ $('#btnHost').onclick=e=>{e.currentTarget.blur();audio();teardownNet();enterLobby();};
  $('#btnPad').onclick=e=>{e.currentTarget.blur();audio();
  $('#menu').classList.add('hidden');$('#pad').classList.remove('hidden');
+ padShow('join');
  setTimeout(()=>$('#padCode').focus(),300);};
- $('#btnCopy').onclick=()=>{
+ $('#btnStartGame').onclick=e=>{e.currentTarget.blur();audio();startFromLobby();};
+ $('#btnLobbyMenu').onclick=e=>{e.currentTarget.blur();goMenu();};
+function copyCode(){
  if(navigator.clipboard){navigator.clipboard.writeText(HOSTCODE).then(()=>toast('Kode '+HOSTCODE+' disalin!')).catch(()=>toast('Kode: '+HOSTCODE));}
  else toast('Kode: '+HOSTCODE);
-};
+}
+ $('#btnCopy').onclick=copyCode;
+ $('#btnCopy2').onclick=copyCode;
  $('#inBtn').onclick=e=>{e.currentTarget.blur();audio();startStage();};
  $('#btnAgain').onclick=e=>{e.currentTarget.blur();audio();restartStage();};
- $('#btnAgain2').onclick=e=>{e.currentTarget.blur();audio();resetRun();showIntro();};
+ $('#btnAgain2').onclick=e=>{e.currentTarget.blur();audio();goLobby();};
+ $('#btnLobby').onclick=e=>{e.currentTarget.blur();audio();goLobby();};
+ $('#btnLobby2').onclick=e=>{e.currentTarget.blur();audio();goLobby();};
  $('#btnRestart').onclick=e=>{e.currentTarget.blur();audio();if(state==='play'||state==='over')restartStage();};
  $('#btnMenu').onclick=e=>{e.currentTarget.blur();goMenu();};
  $('#btnMenu2').onclick=e=>{e.currentTarget.blur();goMenu();};
@@ -1836,7 +2056,7 @@ function loop(t){
  if(state==='play'){
   update(dt);
   netT+=dt;if(netT>.3){netT=0;sendState();}
- }else if(state!=='menu'){
+ }else if(state!=='menu'&&state!=='lobby'){
   for(let i=parts.length-1;i>=0;i--){const p=parts[i];p.x+=p.vx*dt;p.y+=p.vy*dt;p.life-=dt;if(p.life<=0)parts.splice(i,1);}
   for(let i=texts.length-1;i>=0;i--){texts[i].t+=dt;if(texts[i].t>.9)texts.splice(i,1);}
  }
